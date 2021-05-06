@@ -7,6 +7,7 @@ package Telas;
 
 import ClassesExec.InformacoesCliente;
 import ClassesExec.InformacoesServidor;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,10 +30,38 @@ public class Cadastra_Host extends javax.swing.JFrame {
     /**
      * Creates new form Cadastra_Host
      */
-    public Cadastra_Host() {
+    protected Color escuro = new Color(31, 43, 171);
+    protected Color claro = new Color(250, 204, 102);
+    protected Color botao_claro = new Color(31, 135, 235);
+    protected Color botao_escuro = new Color(255, 178, 39);
+    private static boolean clicou = false;
+    public Cadastra_Host(boolean clicou) {
         initComponents();
         ipLocal = getIPLocal();
         ipPublico = getIPPublico();
+        this.clicou = clicou;
+        if(this.clicou){
+            jPanel1.setBackground(escuro);
+            jButton1.setBackground(botao_escuro);
+            jButton2.setBackground(botao_escuro);
+            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
+            jButton3.setBackground(escuro);
+            jCheckBoxSouHost.setBackground(escuro);
+            jLabel1.setForeground(new Color(255, 255, 255));
+            jLabel2.setForeground(new Color(255, 255, 255));
+            jCheckBoxSouHost.setForeground(new Color(255, 255, 255));
+        }
+        else{
+            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
+            jButton1.setBackground(botao_claro);
+            jButton2.setBackground(botao_claro);
+            jPanel1.setBackground(claro);
+            jButton3.setBackground(claro);
+            jCheckBoxSouHost.setBackground(claro);
+            jLabel1.setForeground(new Color(0, 0, 0));
+            jLabel2.setForeground(new Color(0, 0, 0));
+            jCheckBoxSouHost.setForeground(new Color(0, 0, 0));
+        }
     }
 
     /**
@@ -53,6 +82,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jCheckBoxSouHost = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Cadastra Host");
@@ -73,7 +103,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("IP Público:");
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setBackground(new java.awt.Color(31, 135, 235));
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jButton2.setText("VOLTAR");
         jButton2.setBorderPainted(false);
@@ -83,7 +113,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setBackground(new java.awt.Color(31, 135, 235));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jButton1.setText("CRIAR");
         jButton1.setBorderPainted(false);
@@ -104,7 +134,16 @@ public class Cadastra_Host extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LOLOGO2.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LogoLovelace-1.png"))); // NOI18N
+
+        jButton3.setBackground(new java.awt.Color(250, 204, 102));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png"))); // NOI18N
+        jButton3.setBorderPainted(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,18 +170,21 @@ public class Cadastra_Host extends javax.swing.JFrame {
                                 .addComponent(jTextFieldIpPublicoServidor)
                                 .addContainerGap())
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(75, Short.MAX_VALUE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addComponent(jButton3))))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
                 .addComponent(jCheckBoxSouHost)
-                .addGap(68, 68, 68))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -151,9 +193,9 @@ public class Cadastra_Host extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldIpPublicoServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxSouHost)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBoxSouHost)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,9 +206,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,10 +238,10 @@ public class Cadastra_Host extends javax.swing.JFrame {
                 infoServidor.setIpPublicoServidor(jTextFieldIpPublicoServidor.getText());
                 infoServidor.setIpLocalServidor(jTextFieldIpLocalServidor.getText());
                 
-                ServidorScreen servidor = new ServidorScreen();
+                ServidorScreen servidor = new ServidorScreen(clicou);
                 this.dispose();
                 servidor.setVisible(true);
-                inicial ino = new inicial();
+                inicial ino = new inicial(clicou);
                 ino.setVisible(true);
                
              
@@ -212,10 +252,37 @@ public class Cadastra_Host extends javax.swing.JFrame {
         
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        inicial ino = new inicial();
+        inicial ino = new inicial(clicou);
         ino.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.clicou = !this.clicou;
+        if(this.clicou){
+            jPanel1.setBackground(escuro);
+            jButton1.setBackground(botao_escuro);
+            jButton2.setBackground(botao_escuro);
+            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
+            jButton3.setBackground(escuro);
+            jCheckBoxSouHost.setBackground(escuro);
+            jLabel1.setForeground(new Color(255, 255, 255));
+            jLabel2.setForeground(new Color(255, 255, 255));
+            jCheckBoxSouHost.setForeground(new Color(255, 255, 255));
+        }
+        else{
+            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
+            jButton1.setBackground(botao_claro);
+            jButton2.setBackground(botao_claro);
+            jPanel1.setBackground(claro);
+            jButton3.setBackground(claro);
+            jCheckBoxSouHost.setBackground(claro);
+            jLabel1.setForeground(new Color(0, 0, 0));
+            jLabel2.setForeground(new Color(0, 0, 0));
+            jCheckBoxSouHost.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
          
    
     /**
@@ -249,7 +316,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cadastra_Host().setVisible(true);
+                new Cadastra_Host(clicou).setVisible(true);
             }
         });
     }
@@ -257,6 +324,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBoxSouHost;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
