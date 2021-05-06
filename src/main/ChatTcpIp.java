@@ -16,9 +16,10 @@ public class ChatTcpIp {
     /**
      * @param args the command line arguments
      */
+    private static boolean clicou = false;
     public static void main(String[] args) {
         // TODO code application logic here
-        inicial login = new inicial();
+        inicial login = new inicial(clicou);
         login.setVisible(true);
     }
     

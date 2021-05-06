@@ -9,6 +9,7 @@ import ClassesExec.ClienteSocket;
 import ClassesExec.ComandoMensagem;
 import ClassesExec.InformacoesCliente;
 import Enum.ComandoEnum;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
@@ -31,13 +32,26 @@ public class ClienteScreen extends javax.swing.JFrame {
      * @param infoCliente
      * @param socket
      */
-    ClienteScreen(InformacoesCliente infoCliente, Socket socket) throws IOException {
+    protected Color escuro = new Color(31, 43, 171);
+    protected Color claro = new Color(250, 204, 102);
+    protected Color botao_claro = new Color(31, 135, 235);
+    protected Color botao_escuro = new Color(255, 178, 39);
+    private static boolean clicou = false;
+    ClienteScreen(InformacoesCliente infoCliente, Socket socket, boolean clicou) throws IOException {
         this.informacoesCliente = infoCliente;
         listaClientes = new DefaultListModel<>();
         listaClientes.addElement("Todos");
         idSelecionadoDaListaClientes = 0;
         initComponents();
         this.clienteSocket = new ClienteSocket(infoCliente, this, socket);
+        this.clicou = clicou;
+        if(this.clicou){
+            jPanel1.setBackground(escuro);
+            jButton9.setBackground(escuro);
+        }else{
+            jPanel1.setBackground(claro);
+            jButton9.setBackground(claro);
+        }
     }
 
     /**
@@ -65,6 +79,7 @@ public class ClienteScreen extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -157,6 +172,10 @@ public class ClienteScreen extends javax.swing.JFrame {
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/balão.png"))); // NOI18N
         jButton8.setBorderPainted(false);
 
+        jButton9.setBackground(new java.awt.Color(255, 204, 102));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png"))); // NOI18N
+        jButton9.setBorderPainted(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,9 +190,6 @@ public class ClienteScreen extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jButton8)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -192,16 +208,24 @@ public class ClienteScreen extends javax.swing.JFrame {
                                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton9))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)))
+                    .addComponent(jButton9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
@@ -344,7 +368,7 @@ public class ClienteScreen extends javax.swing.JFrame {
     
     private void irParaLogin() {
         this.dispose();
-        new Cadastra_Cliente().setVisible(true);
+        new Cadastra_Cliente(clicou).setVisible(true);
     }
     
     private void acaoParaEnviarMensagem(boolean comAlerta) {
@@ -370,6 +394,7 @@ public class ClienteScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jListClientes;
