@@ -1,50 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
 
-import java.awt.Color;
-
+import java.awt.Point;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
-public class inicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form inicial
-     */
-    private static boolean clicou = false;
-    public inicial(boolean clicou) {
-        initComponents();
-        this.clicou = clicou;
-        if (this.clicou){
-            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/PretoInicial.png")));
-            jPanel1.setBackground(escuro);
-            jButton5.setBackground(escuro);
-            jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
-            jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LOGOGitBranco.png")));
-            jButton1.setBackground(new Color(255, 178, 39));
-            jButton2.setBackground(new Color(255, 178, 39));
-            jButton3.setBackground(new Color(255, 178, 39));
-        } else {
-            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/BrancoInicial2.png")));
-            jPanel1.setBackground(claro);
-            jButton5.setBackground(claro);
-            jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
-            jButton1.setBackground(new Color(31, 135, 235));
-            jButton2.setBackground(new Color(31, 135, 235));
-            jButton3.setBackground(new Color(31, 135, 235));
-        }
+public class inicial extends ClassesExec.MudaTema {
+    
+    private Point pcadcli;
+    private Point pcadhos;
+    
+    private Point getPosicao(){
+        Point p = this.getLocation();
+        return p;
     }
     
-    protected Color escuro = new Color(31, 43, 171);
-    protected Color claro = new Color(250, 204, 102);
-    protected Color botao_claro = new Color(31, 135, 235);
-    protected Color botao_escuro = new Color(255, 178, 39);
+    public inicial() {
+        setIni(this);
+        initComponents();
+        this.mudaCor();
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,6 +64,7 @@ public class inicial extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(31, 135, 235));
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("QUERO SER UM CLIENTE");
         jButton2.setToolTipText("");
         jButton2.setBorderPainted(false);
@@ -90,8 +74,9 @@ public class inicial extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(31, 135, 235));
+        jButton3.setBackground(new java.awt.Color(255, 51, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("INFORMAÇÕES");
         jButton3.setBorderPainted(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -128,39 +113,42 @@ public class inicial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(82, 82, 82)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jButton4)))
-                .addGap(0, 78, Short.MAX_VALUE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 62, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(128, 128, 128))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addGap(15, 15, 15))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,47 +166,83 @@ public class inicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Info info = new Info(clicou);
-        info.setVisible(true);
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Cadastra_Cliente CadCli = new Cadastra_Cliente(clicou);
-        CadCli.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Cadastra_Host CadHost = new Cadastra_Host(clicou);
-        CadHost.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        clicou = !clicou;
-        if (clicou){
+    //Classe sobrescrita para mudar cor. Seta as cores em todos os componentes
+    @Override
+    protected void mudaCor(){
+        if (getCor()){
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/PretoInicial.png")));
             jPanel1.setBackground(escuro);
             jButton5.setBackground(escuro);
             jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
             jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LOGOGitBranco.png")));
-            jButton1.setBackground(new Color(255, 178, 39));
-            jButton2.setBackground(new Color(255, 178, 39));
-            jButton3.setBackground(new Color(255, 178, 39));
+            jButton1.setBackground(botao_escuro);
+            jButton1.setForeground(text_escuro);
+            jButton2.setBackground(botao_escuro);
+            jButton2.setForeground(text_escuro);
+            jButton3.setBackground(botao_escuro);
+            jButton3.setForeground(text_escuro);
         } else {
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/BrancoInicial2.png")));
             jPanel1.setBackground(claro);
             jButton5.setBackground(claro);
             jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
-            jButton1.setBackground(new Color(31, 135, 235));
-            jButton2.setBackground(new Color(31, 135, 235));
-            jButton3.setBackground(new Color(31, 135, 235));
+            jButton1.setBackground(botao_claro);
+            jButton1.setForeground(text_claro);
+            jButton2.setBackground(botao_claro);
+            jButton2.setForeground(text_claro);
+            jButton3.setBackground(botao_claro);
+            jButton3.setForeground(text_claro);
+        }
+    }
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        criaInfo();
+        info.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       
+        criaCadCli();
+        pcadcli = getPosicao();
+        pcadcli.x += 370;
+        cadCli.setLocation(pcadcli);
+        cadCli.setVisible(true);
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        criaCadHost();
+        if(i){
+            pcadhos = getPosicao();
+            pcadhos.x -= 400;
+            cadHost.setLocation(pcadhos);
+            cadHost.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        //Executa o método mudacor em todas as telas
+        setCor();
+        if(cadCli != null){
+            cadCli.mudaCor();
+        }
+        if(ini != null){
+            ini.mudaCor();
+        }
+        if(cadHost != null){
+            cadHost.mudaCor();
+        }
+        if(info != null){
+            info.mudaCor();
+        }
+        if(serv != null){
+            serv.mudaCor();
+        }
+        if(cliente != null){
+            cliente.mudaCor();
         }
               
         
@@ -227,7 +251,7 @@ public class inicial extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         try{
-            java.awt.Desktop.getDesktop().browse( new java.net.URI( "https://github.com/fernandoSantello" ) );
+            java.awt.Desktop.getDesktop().browse( new java.net.URI( "https://github.com/fernandoSantello/APS_Redes_5_Semestre" ) );
         }
         catch(Exception e){
             
@@ -267,7 +291,7 @@ public class inicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new inicial(clicou).setVisible(true);
+                new inicial().setVisible(true);
             }
         });
     }

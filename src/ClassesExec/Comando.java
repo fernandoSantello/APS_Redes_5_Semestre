@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClassesExec;
 
 import Enum.ComandoEnum;
@@ -10,12 +5,22 @@ import java.io.Serializable;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
+
 public class Comando implements Serializable {
+    //Cria variáveis de outras classes para auxílio no funcionamento
     private ComandoEnum comando;
     private InformacoesCliente informacoesCliente;
     
+    //Construtor da classe. Objeto ComandoEnum para verificar o comando
+    //que será executado, e InformacoesCliente para pegar as informacoes do cli-
+    //ente que será utilizado
     public Comando(ComandoEnum comando, InformacoesCliente informacoesCliente) {
         this.comando = comando;
         this.informacoesCliente = informacoesCliente;
@@ -23,10 +28,12 @@ public class Comando implements Serializable {
             this.informacoesCliente.setOut(null);
     }
     
+    // Get Comando
     public ComandoEnum getComando() {
         return comando;
     }
     
+    // Get informacoes Cliente
     public InformacoesCliente getInformacoesCliente() {
         return informacoesCliente;
     }

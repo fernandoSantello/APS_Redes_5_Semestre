@@ -1,55 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
 
 import ClassesExec.InformacoesServidor;
 import ClassesExec.ServidoresSockets;
-import java.awt.Color;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
-public class ServidorScreen extends javax.swing.JFrame {
+
+public class ServidorScreen extends ClassesExec.MudaTema {
+    //Atributos da classe
     InformacoesServidor informacoesServidor;
     ServidoresSockets servidoresSockets;
 
-    /**
-     * Creates new form Servidor
-     */
-    protected Color escuro = new Color(31, 43, 171);
-    protected Color claro = new Color(250, 204, 102);
-    protected Color botao_claro = new Color(31, 135, 235);
-    protected Color botao_escuro = new Color(255, 178, 39);
-    protected Color text_escuro = new Color(255, 255, 255);
-    protected Color text_claro = new Color(0, 0, 0);
-    private static boolean clicou = false;
-    public ServidorScreen(boolean clicou) {
+    //Contrutor da classe
+    public ServidorScreen() {
         informacoesServidor = InformacoesServidor.getInstance();
         servidoresSockets = new ServidoresSockets();
         servidoresSockets.servidoresComecemAOuvir();
         initComponents();
-        this.clicou = clicou;
-        if(this.clicou){
-            jPanel1.setBackground(escuro);
-            jButton1.setBackground(botao_escuro);
-            jLabel1.setForeground(text_escuro);
-            jLabel2.setForeground(text_escuro);
-            jLabel3.setForeground(text_escuro);
-            jButton2.setBackground(escuro);
-            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
-        }else{
-            jPanel1.setBackground(claro);
-            jButton1.setBackground(botao_claro);
-            jLabel1.setForeground(text_claro);
-            jLabel2.setForeground(text_claro);
-            jLabel2.setForeground(text_claro);
-            jButton2.setBackground(claro);
-            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
-        }
+        this.mudaCor();
     }
 
     /**
@@ -69,7 +44,7 @@ public class ServidorScreen extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Servidor");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -122,8 +97,8 @@ public class ServidorScreen extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(jLabel6)))
                 .addGap(31, 31, 31))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -172,38 +147,66 @@ public class ServidorScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-        this.servidoresSockets.servidoresParemDeOuvir();
-    }//GEN-LAST:event_formWindowClosing
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.servidoresSockets.servidoresParemDeOuvir();
-        inicial init = new inicial(clicou);
-        init.setVisible(true);
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.clicou = !this.clicou;
-        if(this.clicou){
+    //Classe sobrescrita para mudar cor. Seta as cores em todos os componentes
+    @Override
+    protected void mudaCor(){
+        if(getCor()){
             jPanel1.setBackground(escuro);
             jButton1.setBackground(botao_escuro);
-            jLabel1.setForeground(text_escuro);
-            jLabel2.setForeground(text_escuro);
-            jLabel3.setForeground(text_escuro);
+            jButton1.setForeground(text_escuro);
+            jLabel1.setForeground(text_claro);
+            jLabel2.setForeground(text_claro);
+            jLabel3.setForeground(text_claro);
             jButton2.setBackground(escuro);
             jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
         }else{
             jPanel1.setBackground(claro);
             jButton1.setBackground(botao_claro);
-            jLabel1.setForeground(text_claro);
-            jLabel2.setForeground(text_claro);
-            jLabel3.setForeground(text_claro);
+            jButton1.setForeground(text_claro);
+            jLabel1.setForeground(text_escuro);
+            jLabel2.setForeground(text_escuro);
+            jLabel3.setForeground(text_escuro);
             jButton2.setBackground(claro);
             jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
+        }
+    }
+    
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // Faz os runnables pararem de ouvir
+        this.servidoresSockets.servidoresParemDeOuvir();
+        i = true;
+        serv = null;
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Faz os runnables pararem de ouvir
+        this.servidoresSockets.servidoresParemDeOuvir();
+        this.setVisible(false);
+        i = true;
+        serv = null;
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //Executa o método mudacor em todas as telas
+        setCor();
+        if(cadCli != null){
+            cadCli.mudaCor();
+        }
+        if(ini != null){
+            ini.mudaCor();
+        }
+        if(cadHost != null){
+            cadHost.mudaCor();
+        }
+        if(info != null){
+            info.mudaCor();
+        }
+        if(serv != null){
+            serv.mudaCor();
+        }
+        if(cliente != null){
+            cliente.mudaCor();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

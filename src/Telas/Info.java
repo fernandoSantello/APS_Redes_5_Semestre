@@ -1,46 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
-
-import java.awt.Color;
-import static java.awt.Color.black;
-import static java.awt.Color.white;
-
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
-public class Info extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JanelaSecundariaAtiva
-     
-    /**
-     * Creates new form JanelaSecundaria
-     */
-    private Color escuro = new Color(31, 43, 171);
-    private Color claro = new Color(250, 204, 102);
-    private static boolean clicou = false;
-    public Info(boolean clicou) {
+public class Info extends ClassesExec.MudaTema {
+    
+    
+    public Info() {
         initComponents();
-        this.clicou = clicou;
-        if(this.clicou){
-            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/PretoInicial.png")));
-            jPanel1.setBackground(escuro);
-            jButton1.setBackground(escuro);
-            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
-            jButton3.setBackground(new Color(255, 178, 39));
-        }else{
-            jPanel1.setBackground(claro);
-            jButton1.setBackground(claro);
-            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
-            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/BrancoInicial2.png")));
-            jButton3.setBackground(new Color(31, 135, 235));
-        }
+        this.mudaCor();
     }
 
     /**
@@ -65,11 +40,15 @@ public class Info extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 102));
 
+        jScrollPane1.setBorder(null);
+
         jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
+        jTextArea1.setColumns(1);
         jTextArea1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("tEXTO EXPLICANDO\n");
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(1);
+        jTextArea1.setText("Olá, seja bem vindo ao novo software de comunicação Team Lovelace!\n\nEste é um espaço onde você pode bater um papo com seus amigos e familiares, de uma forma descontraída e divertida. \n\nNeste aplicativo, temos suporte ao envio de arquivos, mensagens de atenção e até enviar emoji's. \n\nPara usar o Team Lovelace basta você criar um servidor e depois chamar a galera para se conectar. Lembrando que ele só funciona caso os usuários estejam na mesma rede.\n\nEste sistema de comunicação utiliza um socket promovendo comunicação entre a fonte e o destino através do protocolo TCP/IP.\n\n-> Criar um servidor para que possa servir de base para a comunicação e guardar as informações de IP local e privado;\n\n-> Logo após, se cadastrar como um cliente, para isso, terá que usar as informações que foram guardadas anteriormente e dar um nome para este chat.\n\n-> Passar estas informações para os outros usuários poderem se comunicar;\n\n-> Pronto, seu chat já está devidamente configurado e agora podem conversar, aproveitem!\n\n======================================\n\nEste Software está sob a licença GNU  General Public License version 3.0");
+        jTextArea1.setWrapStyleWord(true);
         jTextArea1.setBorder(null);
         jTextArea1.setCaretColor(new java.awt.Color(255, 204, 102));
         jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -148,27 +127,54 @@ public class Info extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        inicial ino = new inicial(this.clicou);
-        ino.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.clicou = !this.clicou;
-        if(this.clicou){
+    //Classe sobrescrita para mudar cor. Seta as cores em todos os componentes
+    @Override
+    protected void mudaCor(){
+        if(getCor()){
             jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/PretoInicial.png")));
             jPanel1.setBackground(escuro);
             jButton1.setBackground(escuro);
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
-            jButton3.setBackground(new Color(255, 178, 39));
+            jButton3.setBackground(botao_escuro);
+            jTextArea1.setBackground(area_escuro);
+            jTextArea1.setForeground(text_claro);
         }else{
             jPanel1.setBackground(claro);
             jButton1.setBackground(claro);
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
             jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/BrancoInicial2.png")));
-            jButton3.setBackground(new Color(31, 135, 235));
+            jButton3.setBackground(botao_claro);
+            jTextArea1.setBackground(area_claro);
+            jTextArea1.setForeground(text_escuro);
+        }
+    }
+    
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Executa o método mudacor em todas as telas
+        setCor();
+        if(cadCli != null){
+            cadCli.mudaCor();
+        }
+        if(ini != null){
+            ini.mudaCor();
+        }
+        if(cadHost != null){
+            cadHost.mudaCor();
+        }
+        if(info != null){
+            info.mudaCor();
+        }
+        if(serv != null){
+            serv.mudaCor();
+        }
+        if(cliente != null){
+            cliente.mudaCor();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -209,7 +215,7 @@ public class Info extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Info(clicou).setVisible(true);
+                new Info().setVisible(true);
             }
         });
         

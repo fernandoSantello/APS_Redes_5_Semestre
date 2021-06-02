@@ -1,25 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import Telas.inicial;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
+
 public class ChatTcpIp {
+    
+    //Classe main para rodar tudo
 
     /**
      * @param args the command line arguments
      */
-    private static boolean clicou = false;
     public static void main(String[] args) {
         // TODO code application logic here
-        inicial login = new inicial(clicou);
+        inicial login = new inicial();
         login.setVisible(true);
     }
     

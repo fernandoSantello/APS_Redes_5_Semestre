@@ -1,57 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
 
 import ClassesExec.ClienteSocket;
 import ClassesExec.ComandoMensagem;
 import ClassesExec.InformacoesCliente;
 import Enum.ComandoEnum;
-import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
-public class ClienteScreen extends javax.swing.JFrame {
+
+public class ClienteScreen extends ClassesExec.MudaTema {
+    //Atributos da classe
     private final InformacoesCliente informacoesCliente;
     private final ClienteSocket clienteSocket;
     public final DefaultListModel<String> listaClientes;
     private int idSelecionadoDaListaClientes;
+    private boolean cor;
 
-    /**
-     * Creates new form Cliente
-     * @param infoCliente
-     * @param socket
-     */
-    protected Color escuro = new Color(31, 43, 171);
-    protected Color claro = new Color(250, 204, 102);
-    protected Color botao_claro = new Color(31, 135, 235);
-    protected Color botao_escuro = new Color(255, 178, 39);
-    private static boolean clicou = false;
-    ClienteScreen(InformacoesCliente infoCliente, Socket socket, boolean clicou) throws IOException {
+
+    //Construtor da classe
+    public ClienteScreen(InformacoesCliente infoCliente, Socket socket) throws IOException {
+        //Inicia os componentes na tela
         this.informacoesCliente = infoCliente;
         listaClientes = new DefaultListModel<>();
         listaClientes.addElement("Todos");
         idSelecionadoDaListaClientes = 0;
         initComponents();
         this.clienteSocket = new ClienteSocket(infoCliente, this, socket);
-        this.clicou = clicou;
-        if(this.clicou){
-            jPanel1.setBackground(escuro);
-            jButton9.setBackground(escuro);
-        }else{
-            jPanel1.setBackground(claro);
-            jButton9.setBackground(claro);
-        }
+        cor = getCor();
+        this.mudaCor();
     }
 
     /**
@@ -70,23 +57,20 @@ public class ClienteScreen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaMessages = new javax.swing.JTextArea();
         jButton5 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jTextFieldMessage = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -98,6 +82,8 @@ public class ClienteScreen extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Conversa ativa");
 
+        jScrollPane3.setBorder(null);
+
         jListClientes.setModel(listaClientes);
         jListClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListClientes.setSelectedIndex(0);
@@ -108,27 +94,25 @@ public class ClienteScreen extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jListClientes);
 
+        jScrollPane1.setBorder(null);
+
         jTextAreaMessages.setEditable(false);
+        jTextAreaMessages.setBackground(new java.awt.Color(220, 220, 220));
         jTextAreaMessages.setColumns(20);
         jTextAreaMessages.setLineWrap(true);
         jTextAreaMessages.setRows(5);
         jScrollPane1.setViewportView(jTextAreaMessages);
 
-        jButton5.setText("Baixar arquivo");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/clipsss.png"))); // NOI18N
+        jButton5.setToolTipText("faz download de um arquivo");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Enviar arquivo");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Enviar alerta");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/alerta30x30.png"))); // NOI18N
+        jButton4.setToolTipText("envia um alerta a todos os usuários");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -143,17 +127,9 @@ public class ClienteScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/pessoas.png"))); // NOI18N
-        jButton6.setBorderPainted(false);
-
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/clipsss.png"))); // NOI18N
-        jButton7.setBorderPainted(false);
-
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/envia.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
+        jButton2.setToolTipText("envia mensagem");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -162,19 +138,29 @@ public class ClienteScreen extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/emojiDemon.png"))); // NOI18N
-        jButton1.setBorderPainted(false);
+        jButton1.setToolTipText("seleciona emotes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Usuários ativos");
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/balão.png"))); // NOI18N
-        jButton8.setBorderPainted(false);
-
         jButton9.setBackground(new java.awt.Color(255, 204, 102));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png"))); // NOI18N
+        jButton9.setToolTipText("muda tema da janela");
         jButton9.setBorderPainted(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/logo40x40.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,110 +168,163 @@ public class ClienteScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton8)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextFieldMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
-                        .addContainerGap(31, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(72, 72, 72)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton9))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton9))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton5))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)))
-                    .addComponent(jButton9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton9)
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton3)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(19, 19, 19))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(34, 34, 34))))
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))))
         );
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Classe sobrescrita para mudar cor. Seta as cores em todos os componentes
+    @Override
+    protected void mudaCor(){
+        if(pegaCor()){
+            jPanel1.setBackground(escuro);
+            jButton9.setBackground(escuro);
+            jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
+            jLabel1.setForeground(text_claro);
+            jLabel2.setForeground(text_claro);
+            jButton1.setBackground(botao_escuro);
+            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/emojiDemon.png")));
+            jButton2.setBackground(botao_escuro);
+            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/envia.png")));
+            jButton4.setBackground(botao_escuro);
+            jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/alerta30x30.png")));
+            jButton5.setBackground(botao_escuro);
+            jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/clipsss.png")));
+            jListClientes.setBackground(area_escuro);
+            jListClientes.setForeground(text_claro);
+            jTextAreaMessages.setBackground(area_escuro);
+            jTextAreaMessages.setForeground(text_claro);
+            jTextFieldMessage.setBackground(area_escuro);
+            jTextFieldMessage.setForeground(text_claro);
+        }else{
+            jPanel1.setBackground(claro);
+            jButton9.setBackground(claro);
+            jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
+            jLabel1.setForeground(text_escuro);
+            jLabel2.setForeground(text_escuro);
+            jButton1.setBackground(botao_claro);
+            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/emojiDemonbranco.png")));
+            jButton2.setBackground(botao_claro);
+            jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/enviabranco.png")));
+            jButton4.setBackground(botao_claro);
+            jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/alertabranco.png")));
+            jButton5.setBackground(botao_claro);
+            jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/clipsssbranco.png")));
+            jListClientes.setBackground(area_claro);
+            jListClientes.setForeground(text_escuro);
+            jTextAreaMessages.setBackground(area_claro);
+            jTextAreaMessages.setForeground(text_escuro);
+            jTextFieldMessage.setBackground(area_claro);
+            jTextFieldMessage.setForeground(text_escuro);
+        }
+    }
+    
+    protected boolean pegaCor(){
+        return this.cor;
+    }
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        this.acaoParaSair();
+        this.dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //Condição para verificar se a variavel esta vazia
+        if(Emoji.getEmojiChat()== null){
+            //Se a variavel for vazia, é mantido o valor já existente no textField
+            this.jTextFieldMessage.setText(jTextFieldMessage.getText());
+        } else {
+            //Caso a veriavel não seja vazia será setado no textField o valor já existente mais o valor da variavel
+            this.jTextFieldMessage.setText(jTextFieldMessage.getText() + Emoji.getEmojiChat());
+        }
+         //Limpando a variavel emoji
+        Emoji.setEmojiChat(null);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Chamando o menu de emoji
+        criaEmoji(this);
+        //Tornando o menu de emoji visivel
+        emoji.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.acaoParaEnviarMensagem(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextFieldMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMessageActionPerformed
         // TODO add your handling code here:
@@ -297,36 +336,15 @@ public class ClienteScreen extends javax.swing.JFrame {
         acaoParaEnviarMensagem(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser();
-        int option = fileChooser.showDialog(null, "Enviar");
-        if (option == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            long fileLength = file.length();
-            if (fileLength > Integer.MAX_VALUE)
-            JOptionPane.showMessageDialog(null, "Arquivo muito grande, não é possível transferi-lo.", "Erro ao transferir arquivo.", JOptionPane.ERROR_MESSAGE);
-            else if (!file.isFile())
-            JOptionPane.showMessageDialog(null, "A seleção não é um arquivo.", "Erro ao transferir arquivo.", JOptionPane.ERROR_MESSAGE);
-            else {
-                clienteSocket.transferirArquivo(idSelecionadoDaListaClientes, file);
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        String caminho = JOptionPane.showInputDialog(null, "Informe o caminho do arquivo", "Caminho do arquivo", JOptionPane.QUESTION_MESSAGE);
-        if (caminho != null && !caminho.trim().isEmpty()) {
-            String local = escolherLocalParaSalvarArquivo();
-            if (local != null && !local.trim().isEmpty()) {
-                clienteSocket.baixarArquivo(caminho, local);
-            }
-        }
+        //Escolhe arquivo apra ser baixado
+        criaArquivo(idSelecionadoDaListaClientes, clienteSocket, this);
+        arqui.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jListClientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListClientesValueChanged
-        // TODO add your handling code here:
+        //Escolhe o ID para qual a mensagem é enviada através do clique do usuário na lista de
+        //outros clientes (outros IDs)
         int antigoIdParaMensagem = this.idSelecionadoDaListaClientes;
         if (jListClientes.getSelectedIndex() == 0)
         this.idSelecionadoDaListaClientes = 0;
@@ -346,31 +364,19 @@ public class ClienteScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jListClientesValueChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.acaoParaEnviarMensagem(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public String escolherLocalParaSalvarArquivo() {
-        JFileChooser fileChooser = new JFileChooser(); 
-        fileChooser.setCurrentDirectory(new java.io.File("."));
-        fileChooser.setDialogTitle("Escolha o diretório para salvar");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fileChooser.setAcceptAllFileFilterUsed(false);
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-            return fileChooser.getSelectedFile().toString();
-        }
-        return null;
-    }
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        //Executa o método mudacor em todas as telas
+        cor = !cor;
+        //setCor();
+        this.mudaCor();
+    }//GEN-LAST:event_jButton9ActionPerformed
     
+    //Desconecta cliente do servidor
     private void acaoParaSair() {
         this.clienteSocket.enviarMensagem(ComandoEnum.SAIR);
     }
     
-    private void irParaLogin() {
-        this.dispose();
-        new Cadastra_Cliente(clicou).setVisible(true);
-    }
-    
+    //Envia mensagem de alerta com o input do usuário
     private void acaoParaEnviarMensagem(boolean comAlerta) {
         if (jTextFieldMessage != null && !jTextFieldMessage.getText().trim().isEmpty()) {
             ComandoEnum comandoEnum;
@@ -388,19 +394,13 @@ public class ClienteScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jListClientes;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -408,6 +408,7 @@ public class ClienteScreen extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldMessage;
     // End of variables declaration//GEN-END:variables
 
+    //Adiciona mensagem na text area
     public void adicionarMensagemNoCampoDeMensagens(ComandoMensagem mensagemObj) {
         if ((idSelecionadoDaListaClientes == 0 && mensagemObj.getMensagemPara() == 0) ||
             (mensagemObj.getMensagemPara() == this.informacoesCliente.getId() && idSelecionadoDaListaClientes == mensagemObj.getMensagemDe()) ||
@@ -416,14 +417,17 @@ public class ClienteScreen extends javax.swing.JFrame {
         }
     }
     
+    //Adiciona o nome do cliente a lista de clientes
     public void adicionarClienteAListaClientes(InformacoesCliente infoCliente) {
         listaClientes.addElement(pegarTextoParaCampoDeMensagens(infoCliente));
     }
     
+    //Coloca o nome do cliente no campo da mensagem
     private String pegarTextoParaCampoDeMensagens(InformacoesCliente infoCliente) {
         return "(" + infoCliente.getId() + ") " + infoCliente.getNome() + "\n";
     }
     
+    //Remove o cliente da lista
     public void removerClienteDaListaClientes(InformacoesCliente infoCliente) {
         if (idSelecionadoDaListaClientes == infoCliente.getId()) {
             jListClientes.setSelectedIndex(0);
@@ -432,13 +436,15 @@ public class ClienteScreen extends javax.swing.JFrame {
         listaClientes.removeElement(pegarTextoParaCampoDeMensagens(infoCliente));
     }
     
+    //Registra o título da janela do cliente que está usando a janela
     public void registrarAMim(InformacoesCliente infoCliente) {
         this.informacoesCliente.setId(infoCliente.getId());
         this.setTitle("Cliente - (" + this.informacoesCliente.getId() + ") " + this.informacoesCliente.getNome());
     }
 
+    //Notificação de quando o server para/da problema/seja fechado
     public void desconectarAMim() {
         JOptionPane.showMessageDialog(null, "O servidor foi desconectado, retornando a tela de login.", "O servidor parou", JOptionPane.ERROR_MESSAGE);
-        this.irParaLogin();
+        this.dispose();
     }
 }

@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClassesExec;
 
+//Importação de bibliotecas/pacotes/classes utilizados
 import Enum.ComandoEnum;
 import Telas.ClienteScreen;
 import java.awt.HeadlessException;
@@ -28,16 +24,24 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
 public class ClienteSocket {
+    //Atributos da classe
     private final Socket socket;
     private final InformacoesCliente informacoesCliente;
     private final ClienteScreen clienteScreen;
     private final List<InformacoesCliente> listaClientes;
     private final ObjectOutputStream out;
     private ObjectInputStream in;
+    //private ObjectInputStream inArray;
     
+    //Construtor da classe
     public ClienteSocket(InformacoesCliente infoCliente, ClienteScreen clienteScreen, Socket socket) throws IOException {
         this.informacoesCliente = infoCliente;
         this.clienteScreen = clienteScreen;
@@ -48,11 +52,13 @@ public class ClienteSocket {
         comecarAOuvir();
     }
     
+    //Registra o cliente
     private void registrarCliente() {
         enviarMensagem(ComandoEnum.REGISTRAR);
     }
     
     private void comecarAOuvir() {
+        //Cria método runnable usando expressão Lambda
         Runnable runnableListen = () -> {
             try {
                 this.in = new ObjectInputStream(this.socket.getInputStream());
@@ -60,22 +66,30 @@ public class ClienteSocket {
                 while ((comandoObj = (Comando) in.readObject()) != null) {
                     if (comandoObj.getComando() != null) {
                         switch (comandoObj.getComando()) {
+                            //Ações que os comandos (especificados em ComandoEnum) tem sob essa classe
+                            //caso forem chamados
+                            
+                            //Adiciona cliente a lista e tela
                             case ADICIONAR:
                                 listaClientes.add(comandoObj.getInformacoesCliente());
                                 clienteScreen.adicionarClienteAListaClientes(comandoObj.getInformacoesCliente());
                                 break;
+                            //Remove cliente da lista e da tela    
                             case REMOVER:
                                 listaClientes.remove(comandoObj.getInformacoesCliente());
                                 clienteScreen.removerClienteDaListaClientes(comandoObj.getInformacoesCliente());
                                 break;
+                            //Desconecta o cliente do chat
                             case DESCONECTAR:
                                 clienteScreen.desconectarAMim();
                                 break;
+                            //Seta o ID e registra o título do chat de um cliente X na tela
                             case REGISTRAR:
                                 informacoesCliente.setId(comandoObj.getInformacoesCliente().getId());
                                 clienteScreen.registrarAMim(informacoesCliente);
                                 break;
                             case MENSAGEM:
+                            //Abre um jOptionPane de alerta para todos os clientes
                             case MENSAGEMALERTA:
                                 if (comandoObj instanceof ComandoMensagem) {
                                     ComandoMensagem comandoMensagemObj = ((ComandoMensagem) comandoObj);
@@ -96,6 +110,7 @@ public class ClienteSocket {
         threadListen.start();
     }
     
+    //Registra o cliente
     public void enviarMensagem(ComandoEnum comando) {
         try {
             Comando mensagemObj = new Comando(comando, informacoesCliente);
@@ -106,6 +121,7 @@ public class ClienteSocket {
         }
     }
     
+    //Envia mensagem de um cliente para outro, ou de um para todos
     public void enviarMensagem(ComandoEnum comando, int mensagemDe, int mensagemPara, String mensagem) {
         try {
             Comando mensagemObj = new ComandoMensagem(comando, informacoesCliente, mensagemDe, mensagemPara, mensagem + "\n");
@@ -117,14 +133,18 @@ public class ClienteSocket {
         }
     }
     
+    //Envia um arquivo
     public void transferirArquivo(int idSelecionadoDaListaClientes, File file) {
         try {
+            //Pega os IP local do servidor
             byte[] ipLocalByteArr = InetAddress.getByName(informacoesCliente.getIpLocalServidor()).getAddress();
             Socket socketTransferirArquivo = new Socket(InetAddress.getByAddress(informacoesCliente.getIpPublicoServidor(), ipLocalByteArr), informacoesCliente.getPortFileUpload());
             byte[] fileBytes = new byte[(int)file.length()];
+            //Joga a file passada como parametro em um input stream
             FileInputStream fileInputStream = new FileInputStream(file);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
             bufferedInputStream.read(fileBytes, 0, fileBytes.length);
+            //Realiza o Upload com as informações coletadas até o momento
             FileUpload fileUpload = new FileUpload(ComandoEnum.FILEUPLOAD, informacoesCliente, fileBytes, file.getName(), idSelecionadoDaListaClientes);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketTransferirArquivo.getOutputStream());
             objectOutputStream.writeObject(fileUpload);
@@ -138,28 +158,37 @@ public class ClienteSocket {
         }
     }
     
+    //Baixa arquivo
     public void baixarArquivo(String caminhoArquivoServidor, String localParaSalvar) {
+        //Pega a string que está salva
         String arquivoSemDiretorio = caminhoArquivoServidor.replace(informacoesCliente.getDiretorioArquivos(), "");
+        //Cria o padrão de linguagem formal
         Pattern extrairApenasONomeDoArquivo = Pattern.compile("_.{1,}$");
+        //Verifica se o que da dentro da arquivoSemDiretorio possui o padrão mencionado
         Matcher matcher = extrairApenasONomeDoArquivo.matcher(arquivoSemDiretorio);
         String nomeArquivo = "";
         if (matcher.find())
             nomeArquivo = matcher.group();
         nomeArquivo = nomeArquivo.substring(1);
         try {
+            //Pega os Ips
             byte[] ipLocalByteArr = InetAddress.getByName(informacoesCliente.getIpLocalServidor()).getAddress();
             Socket socketDownloadArquivo = new Socket(InetAddress.getByAddress(informacoesCliente.getIpPublicoServidor(), ipLocalByteArr), informacoesCliente.getPortFileDownload());
             PrintWriter printWriter = new PrintWriter(socketDownloadArquivo.getOutputStream());
             printWriter.println(caminhoArquivoServidor);
             printWriter.flush();
-
+            
+            //ObjectInputStream para fazer o download do arquivo
             ObjectInputStream objectInputStream = new ObjectInputStream(socketDownloadArquivo.getInputStream());
             FileDownload fileDownload = (FileDownload) objectInputStream.readObject();
+            //Se não existir local para salvar, cria um diretório
             if (!new File(localParaSalvar).exists()) {
                 new File(localParaSalvar).mkdirs();
             }
+            //"Formato semântico" para salvar no computador (\\talpasta\\talarquivo.txt)
             nomeArquivo = localParaSalvar + "\\" + nomeArquivo;
             new File(nomeArquivo).createNewFile();
+            //Baixa o arquivo
             try (OutputStream outputStream = new FileOutputStream(nomeArquivo)) {
                 outputStream.write(fileDownload.getFileBytes());
             }
@@ -169,6 +198,26 @@ public class ClienteSocket {
         }
     }
     
+    //Recupera String[] com lista de arquivos no servidor
+    public String[] recuperaArquivosNoServidor(){
+        //Objeto FileArray que ira ser recebido
+        FileArray fileArray = null;
+        try {
+            //Pega os Ips e cria socket para estabelecer conexão
+            byte[] ipLocalByteArr = InetAddress.getByName(informacoesCliente.getIpLocalServidor()).getAddress();
+            Socket socketArrayList = new Socket(InetAddress.getByAddress(informacoesCliente.getIpPublicoServidor(), ipLocalByteArr), informacoesCliente.getPortArrayFiles());
+            
+            //Cria um ObjectInputStream para receber o objeto e depois o grava em fileArray
+            ObjectInputStream OIS = new ObjectInputStream(socketArrayList.getInputStream());
+            fileArray = (FileArray) OIS.readObject();
+            
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        //retorna oString[] com os nomes dos arquivos
+        return fileArray.getNomeArquivos();
+    }
+    //Métodos Get
     public List<InformacoesCliente> getListaClientes() {
         return this.listaClientes;
     }

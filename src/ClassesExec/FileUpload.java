@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClassesExec;
 
 import Enum.ComandoEnum;
@@ -10,13 +5,20 @@ import java.io.Serializable;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
+
 public class FileUpload extends FileDownload implements Serializable {
     private final String nome;
     private final long currentTimeMillis;
     private int arquivoPara;
     
+    //Método Construtor da classe 
     public FileUpload(ComandoEnum comando, InformacoesCliente informacoesCliente, byte[] fileBytes, String nome, int arquivoPara) {
         super(comando, informacoesCliente, fileBytes);
         this.nome = nome;
@@ -24,6 +26,7 @@ public class FileUpload extends FileDownload implements Serializable {
         this.arquivoPara = arquivoPara;
     }
     
+    //Métodos Set e Get
     public String getNome() {
         return nome;
     }

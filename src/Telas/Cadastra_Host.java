@@ -1,67 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
 
-import ClassesExec.InformacoesCliente;
 import ClassesExec.InformacoesServidor;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
-
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
-public class Cadastra_Host extends javax.swing.JFrame {
+
+public class Cadastra_Host extends ClassesExec.MudaTema {
+    //Atributos da classe
     String ipLocal, ipPublico;
 
-    /**
-     * Creates new form Cadastra_Host
-     */
-    protected Color escuro = new Color(31, 43, 171);
-    protected Color claro = new Color(250, 204, 102);
-    protected Color botao_claro = new Color(31, 135, 235);
-    protected Color botao_escuro = new Color(255, 178, 39);
-    private static boolean clicou = false;
-    public Cadastra_Host(boolean clicou) {
+    //Construtor da classe
+    public Cadastra_Host() {
         initComponents();
         ipLocal = getIPLocal();
         ipPublico = getIPPublico();
-        this.clicou = clicou;
-        if(this.clicou){
-            jPanel1.setBackground(escuro);
-            jButton1.setBackground(botao_escuro);
-            jButton2.setBackground(botao_escuro);
-            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
-            jButton3.setBackground(escuro);
-            jCheckBoxSouHost.setBackground(escuro);
-            jLabel1.setForeground(new Color(255, 255, 255));
-            jLabel2.setForeground(new Color(255, 255, 255));
-            jCheckBoxSouHost.setForeground(new Color(255, 255, 255));
-        }
-        else{
-            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
-            jButton1.setBackground(botao_claro);
-            jButton2.setBackground(botao_claro);
-            jPanel1.setBackground(claro);
-            jButton3.setBackground(claro);
-            jCheckBoxSouHost.setBackground(claro);
-            jLabel1.setForeground(new Color(0, 0, 0));
-            jLabel2.setForeground(new Color(0, 0, 0));
-            jCheckBoxSouHost.setForeground(new Color(0, 0, 0));
-        }
+        this.mudaCor();
     }
 
     /**
@@ -84,8 +52,9 @@ public class Cadastra_Host extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela Cadastra Host");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 102));
 
@@ -98,10 +67,10 @@ public class Cadastra_Host extends javax.swing.JFrame {
         jTextFieldIpPublicoServidor.setToolTipText("Digite seu IP Público");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("IP Local:");
+        jLabel1.setText("IP Público:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("IP Público:");
+        jLabel2.setText("IP Local:");
 
         jButton2.setBackground(new java.awt.Color(31, 135, 235));
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
@@ -166,14 +135,15 @@ public class Cadastra_Host extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextFieldIpLocalServidor)
                                 .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addComponent(jButton3)
+                                .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextFieldIpPublicoServidor)
-                                .addContainerGap())
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                .addComponent(jButton3))))))
+                                .addContainerGap())))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(jCheckBoxSouHost)
@@ -182,24 +152,25 @@ public class Cadastra_Host extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldIpLocalServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIpPublicoServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldIpPublicoServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIpLocalServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBoxSouHost)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,19 +181,50 @@ public class Cadastra_Host extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Classe sobrescrita para mudar cor. Seta as cores em todos os componentes
+    @Override
+    protected void mudaCor(){
+        if(getCor()){
+            jPanel1.setBackground(escuro);
+            jButton1.setBackground(botao_escuro);
+            jButton1.setForeground(text_escuro);
+            jButton2.setBackground(botao_escuro);
+            jButton2.setForeground(text_escuro);
+            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
+            jButton3.setBackground(escuro);
+            jCheckBoxSouHost.setBackground(escuro);
+            jLabel1.setForeground(text_claro);
+            jLabel2.setForeground(text_claro);
+            jCheckBoxSouHost.setForeground(text_claro);
+        }
+        else{
+            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
+            jButton1.setBackground(botao_claro);
+            jButton1.setForeground(text_claro);
+            jButton2.setBackground(botao_claro);
+            jButton2.setForeground(text_claro);
+            jPanel1.setBackground(claro);
+            jButton3.setBackground(claro);
+            jCheckBoxSouHost.setBackground(claro);
+            jLabel1.setForeground(text_escuro);
+            jLabel2.setForeground(text_escuro);
+            jCheckBoxSouHost.setForeground(text_escuro);
+        }
+    }
+    
     private void jCheckBoxSouHostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxSouHostActionPerformed
-         // TODO add your handling code here:
+        //Pega o valor do IP público e local e preenche automaticamente os campos
         if (jCheckBoxSouHost.isSelected()) {
-         
             jTextFieldIpPublicoServidor.setText(ipPublico);
             jTextFieldIpLocalServidor.setText(ipLocal);
+        //Else habilita os campos para serem preenchidos pelo usuário
         } else {
             jTextFieldIpPublicoServidor.setText("");
             jTextFieldIpLocalServidor.setText("");
@@ -231,56 +233,45 @@ public class Cadastra_Host extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxSouHostActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        //Verifica se os IPs estão corretos e conecta o servidor caso estejam
         if (isValidLogin()) {
-                
                 InformacoesServidor infoServidor = InformacoesServidor.getInstance();
                 infoServidor.setIpPublicoServidor(jTextFieldIpPublicoServidor.getText());
                 infoServidor.setIpLocalServidor(jTextFieldIpLocalServidor.getText());
                 
-                ServidorScreen servidor = new ServidorScreen(clicou);
+                criaServ();
                 this.dispose();
-                servidor.setVisible(true);
-                inicial ino = new inicial(clicou);
-                ino.setVisible(true);
-               
-             
+                serv.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-          
-        
-            
-        
-    }
+   
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        inicial ino = new inicial(clicou);
-        ino.setVisible(true);
+        
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        this.clicou = !this.clicou;
-        if(this.clicou){
-            jPanel1.setBackground(escuro);
-            jButton1.setBackground(botao_escuro);
-            jButton2.setBackground(botao_escuro);
-            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Branco.png")));
-            jButton3.setBackground(escuro);
-            jCheckBoxSouHost.setBackground(escuro);
-            jLabel1.setForeground(new Color(255, 255, 255));
-            jLabel2.setForeground(new Color(255, 255, 255));
-            jCheckBoxSouHost.setForeground(new Color(255, 255, 255));
+
+        //Executa o método mudacor em todas as telas
+        setCor();
+        if(cadCli != null){
+            cadCli.mudaCor();
         }
-        else{
-            jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/LampadaIcon30x30Preto.png")));
-            jButton1.setBackground(botao_claro);
-            jButton2.setBackground(botao_claro);
-            jPanel1.setBackground(claro);
-            jButton3.setBackground(claro);
-            jCheckBoxSouHost.setBackground(claro);
-            jLabel1.setForeground(new Color(0, 0, 0));
-            jLabel2.setForeground(new Color(0, 0, 0));
-            jCheckBoxSouHost.setForeground(new Color(0, 0, 0));
+        if(ini != null){
+            ini.mudaCor();
+        }
+        if(cadHost != null){
+            cadHost.mudaCor();
+        }
+        if(info != null){
+            info.mudaCor();
+        }
+        if(serv != null){
+            serv.mudaCor();
+        }
+        if(cliente != null){
+            cliente.mudaCor();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
          
@@ -316,7 +307,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cadastra_Host(clicou).setVisible(true);
+                new Cadastra_Host().setVisible(true);
             }
         });
     }
@@ -334,6 +325,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldIpPublicoServidor;
     // End of variables declaration//GEN-END:variables
 
+ //Pega o IP locar através do iNetAddress
  private String getIPLocal() {
         try {
             InetAddress iNetAddress = InetAddress.getLocalHost();
@@ -344,6 +336,7 @@ public class Cadastra_Host extends javax.swing.JFrame {
         return null;
     }
     
+    //Pega o IP público atrvés de sites
     private String getIPPublico() {
         String[] urls = { "http://checkip.amazonaws.com/", "https://myexternalip.com/raw", "https://ipecho.net/plain" };
         String ip = null;
@@ -361,12 +354,45 @@ public class Cadastra_Host extends javax.swing.JFrame {
         return ip;
     }
     
+    //Confere se o IP inserido é um IP válido
+    public static boolean validIP (String ip) {
+    try {
+        if ( ip == null || ip.isEmpty() ) {
+            return false;
+        }
+
+        String[] parts = ip.split( "\\." );
+        if ( parts.length != 4 ) {
+            return false;
+        }
+
+        for ( String s : parts ) {
+            int i = Integer.parseInt( s );
+            if ( (i < 0) || (i > 255) ) {
+                return false;
+            }
+        }
+        if ( ip.endsWith(".") ) {
+            return false;
+        }
+       
+        return true;
+    } catch (NumberFormatException nfe) {
+        return false;
+    }
+}
+    
+     //Faz as verificações necessárias para ver se os IPs inseridos são validos
      private boolean isValidLogin() {
         StringBuilder builder = new StringBuilder();
         if (jTextFieldIpPublicoServidor.getText() == null || jTextFieldIpPublicoServidor.getText().trim().isEmpty())
             builder.append("IP público do servidor não pode ser vazio.\n");
         if (jTextFieldIpLocalServidor.getText() == null || jTextFieldIpLocalServidor.getText().trim().isEmpty())
             builder.append("IP local do servidor não pode ser vazio.\n");
+        if (validIP(jTextFieldIpPublicoServidor.getText()) == false)
+            builder.append("IP público do servidor inválido.\n");
+        if (validIP(jTextFieldIpLocalServidor.getText()) == false)
+            builder.append("IP local do servidor inválido.\n");
  
         
         if (!builder.toString().isEmpty())

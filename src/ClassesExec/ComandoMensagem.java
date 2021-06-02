@@ -1,21 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClassesExec;
 
 import Enum.ComandoEnum;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
+
+//Herda de "Comando"
 public class ComandoMensagem extends Comando {
+    // Variáveis utilizadas na classe
     private int mensagemDe;
     private int mensagemPara;
     private String mensagem;
     
+    //Construtor da classe. Utiliza parte do contrutor da classe pai com a parte do comando
+    //e da informacoescliente. E ele irá trabalhar com IDs na parte de "mensagemDe" e "mensagemPara", e a
+    //string "mensagem" é a mensagem em si.
     public ComandoMensagem(ComandoEnum comando, InformacoesCliente informacoesCliente, int mensagemDe, int mensagemPara, String mensagem) {
         super(comando, informacoesCliente);
         this.mensagemDe = mensagemDe;
@@ -23,6 +29,7 @@ public class ComandoMensagem extends Comando {
         this.mensagem = mensagem;
     }
     
+    //Conjuto de métodos Get e Set da classe
     public int getMensagemDe() {
         return mensagemDe;
     }

@@ -1,22 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClassesExec;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
+
 public abstract class Informacoes {
+    //Variáveis utilizadas na classe
     private String ipPublicoServidor;
     private String ipLocalServidor;
+    //Portas do computador utilizadas para comunicacao
     private final int portServidor = 57311;
     private final int portFileUpload = 57312;
     private final int portFileDownload = 57313;
+    private final int portArrayFiles = 57314;
     private final String diretorioArquivos = "./tempServer/";
     
+    //Conjuntos de métodos Get e Set da classe
     public String getIpPublicoServidor() {
         return ipPublicoServidor;
     }
@@ -43,6 +48,10 @@ public abstract class Informacoes {
     
     public int getPortFileDownload() {
         return portFileDownload;
+    }
+    
+    public int getPortArrayFiles(){
+        return portArrayFiles;
     }
     
     public String getDiretorioArquivos() {

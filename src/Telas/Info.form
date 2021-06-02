@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Tela de Informa&#xe7;&#xf5;es - Lovelace"/>
@@ -90,6 +90,11 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
@@ -99,12 +104,14 @@
             <Component class="javax.swing.JTextArea" name="jTextArea1">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="columns" type="int" value="20"/>
+                <Property name="columns" type="int" value="1"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="14" style="0"/>
                 </Property>
-                <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="tEXTO EXPLICANDO&#xa;"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="1"/>
+                <Property name="text" type="java.lang.String" value="Ol&#xe1;, seja bem vindo ao novo software de comunica&#xe7;&#xe3;o Team Lovelace!&#xa;&#xa;Este &#xe9; um espa&#xe7;o onde voc&#xea; pode bater um papo com seus amigos e familiares, de uma forma descontra&#xed;da e divertida. &#xa;&#xa;Neste aplicativo, temos suporte ao envio de arquivos, mensagens de aten&#xe7;&#xe3;o e at&#xe9; enviar emoji&apos;s. &#xa;&#xa;Para usar o Team Lovelace basta voc&#xea; criar um servidor e depois chamar a galera para se conectar. Lembrando que ele s&#xf3; funciona caso os usu&#xe1;rios estejam na mesma rede.&#xa;&#xa;Este sistema de comunica&#xe7;&#xe3;o utiliza um socket promovendo comunica&#xe7;&#xe3;o entre a fonte e o destino atrav&#xe9;s do protocolo TCP/IP.&#xa;&#xa;-&gt; Criar um servidor para que possa servir de base para a comunica&#xe7;&#xe3;o e guardar as informa&#xe7;&#xf5;es de IP local e privado;&#xa;&#xa;-&gt; Logo ap&#xf3;s, se cadastrar como um cliente, para isso, ter&#xe1; que usar as informa&#xe7;&#xf5;es que foram guardadas anteriormente e dar um nome para este chat.&#xa;&#xa;-&gt; Passar estas informa&#xe7;&#xf5;es para os outros usu&#xe1;rios poderem se comunicar;&#xa;&#xa;-&gt; Pronto, seu chat j&#xe1; est&#xe1; devidamente configurado e agora podem conversar, aproveitem!&#xa;&#xa;======================================&#xa;&#xa;Este Software est&#xe1; sob a licen&#xe7;a GNU  General Public License version 3.0"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -112,7 +119,7 @@
                   <Color blue="66" green="cc" red="ff" type="rgb"/>
                 </Property>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Padr&#xe3;o"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
               </Properties>

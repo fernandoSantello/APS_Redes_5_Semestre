@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClassesExec;
 
 import static ClassesExec.ServidoresSockets.outEuEOutrosClientes;
@@ -18,8 +13,14 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Fer-san
+ * @author Fer-sama
+ * @author Isa-chan
+ * @author Perigo-kun
+ * @author Lucas-san
+ * @author Japa-kouhai
+ * 
  */
+
 public class ThreadMensagens extends Thread {
     private final Socket socketEuClient;
     private final InformacoesCliente informacoesEuCliente;
@@ -27,6 +28,7 @@ public class ThreadMensagens extends Thread {
     private final ObjectInputStream in;
     private final ObjectOutputStream out;
 
+    //Construtor da classe
     ThreadMensagens(Socket client, InformacoesCliente cliente, ServidoresSockets servidorSocket, ObjectInputStream in, ObjectOutputStream out) {
         this.socketEuClient = client;
         this.informacoesEuCliente = cliente;
@@ -43,7 +45,10 @@ public class ThreadMensagens extends Thread {
                 InformacoesServidor informacoesServidor = InformacoesServidor.getInstance();
                 Iterator<ObjectOutputStream> iterador = outEuEOutrosClientes.iterator();
                 if (comandoObj.getComando() != null) {
+                    //Ações que os comandos (especificados em ComandoEnum) tem sob essa classe
+                    //caso forem chamados
                     switch (comandoObj.getComando()) {
+                        //Remove tudo relecionado a cliente de ID X
                         case SAIR:
                             while (iterador.hasNext()) {
                                 ObjectOutputStream outEuEOutroClient = iterador.next();
@@ -68,6 +73,7 @@ public class ThreadMensagens extends Thread {
                                 }
                             }
                             break;
+                        //Mensagem de alerta para todos os clientes conectados
                         case MENSAGEM:
                         case MENSAGEMALERTA:
                             if (comandoObj instanceof ComandoMensagem) {
@@ -99,18 +105,21 @@ public class ThreadMensagens extends Thread {
                                 }
                             }
                             break;
+                        //Envio de arquivo
                         case FILEUPLOAD:
                             if (comandoObj instanceof FileUpload) {
                                 FileUpload fileUpload = (FileUpload) comandoObj;
                                 String nomeArquivoNoServidor = fileUpload.getCurrentTimeMillis() + "_" + fileUpload.getNome();
+                                //Cria o padrão de linguagem formal
                                 Pattern extrairApenasONomeDoArquivo = Pattern.compile("_.{1,}$");
+                                //Verifica se o que da dentro da arquivoSemDiretorio possui o padrão mencionado
                                 Matcher matcher = extrairApenasONomeDoArquivo.matcher(nomeArquivoNoServidor);
                                 String nomeArquivo = "";
                                 if (matcher.find())
                                     nomeArquivo = matcher.group();
                                 nomeArquivo = nomeArquivo.substring(1);
                                 String caminhoArquivoNoServidor = informacoesServidor.getDiretorioArquivos() + nomeArquivoNoServidor;
-                                String mensagem = "(" + informacoesEuCliente.getId() + ") " + informacoesEuCliente.getNome() + " enviou o arquivo " + nomeArquivo + ", para baixar insira o caminho " + caminhoArquivoNoServidor;
+                                String mensagem = "(" + informacoesEuCliente.getId() + ") " + informacoesEuCliente.getNome() + " enviou o arquivo " + nomeArquivo + "\n";
                                 ComandoMensagem mensagemObj = new ComandoMensagem(ComandoEnum.MENSAGEM, informacoesEuCliente, informacoesEuCliente.getId(), fileUpload.getArquivoPara(), mensagem);
                                 informacoesServidor.addParaTodasAsMensagens(mensagemObj);
                                 if (fileUpload.getArquivoPara() == 0) {
